@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  http_basic_authenticate_with name: "Alex", password: "123", except: [:index, :show]
+
   # GET /posts
   def index
     @posts = Post.all
@@ -22,7 +24,9 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post
     else
-      render 'new'
+      # flash does not work when using redirect, need to use render
+      # flash.now[:alert] = "Posts need to be between 1 and 280 characters"
+      redirect_to new_post_path(@post)
     end
   end
 
@@ -38,7 +42,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to @post
     else
-      render 'edit'
+      redirect_to edit_post_path(@post)
     end
   end
 
