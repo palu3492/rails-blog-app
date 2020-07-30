@@ -1,6 +1,6 @@
-<h3>Add new post</h3>
+<h1>Add new post</h1>
 
-<%= form_for :post, url: posts_path do |f| %>
+<%= form_for :post, url: post_path(@post), method: :patch do |f| %>
   <p>
     <%= f.label :title %>
     <%= f.text_field :title %>
